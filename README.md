@@ -191,37 +191,6 @@ COLORS = {
 - `plotly>=5.18.0` - Visualisations interactives
 - `streamlit>=1.29.0` - Framework de création d'applications web
 
-## 🤝 Contribution
-
-Pour contribuer au projet :
-1. Fork le repository
-2. Créer une branche pour votre fonctionnalité
-3. Commiter vos changements
-4. Pousser vers la branche
-5. Ouvrir une Pull Request
-
-## 📄 Licence
-
-Ce projet est développé pour l'événement CES'Event.
-
-## 🐛 Problèmes Courants
-
-### Le fichier donations.json n'est pas trouvé
-- Vérifiez que le fichier est bien dans `data/donations.json`
-- Vérifiez les permissions de lecture du fichier
-
-### Erreur d'import des modules src
-- Assurez-vous d'exécuter `streamlit run dashboard.py` depuis la racine du projet
-- Vérifiez que `src/__init__.py` existe
-
-### Graphiques ne s'affichent pas correctement
-- Effacez le cache de Streamlit : `streamlit cache clear`
-- Redémarrez l'application
-
-## 📧 Support
-
-Pour toute question ou problème, veuillez ouvrir une issue sur le repository du projet.
-
 ---
 
 **Développé avec ❤️ pour CES'Event**
