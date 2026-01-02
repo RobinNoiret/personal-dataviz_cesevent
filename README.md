@@ -104,26 +104,6 @@ COLORS = {
 2. Appelez-la dans `dashboard.py`
 3. Affichez avec `st.metric()`
 
-## Problèmes courants
-
-**Le fichier n'est pas trouvé**
-- Vérifiez que `donations.json` est bien dans le dossier `data/`
-- Vérifiez les permissions du fichier
-
-**Erreur d'import**
-- Lancez la commande depuis la racine du projet
-- Vérifiez que `src/__init__.py` existe
-
-**Les graphiques ne s'affichent pas**
-- Effacez le cache : `streamlit cache clear`
-- Relancez l'application
-
-## Technologies
-
-- **Streamlit** - Interface web
-- **Plotly** - Graphiques interactifs
-- **Pandas** - Traitement des données
-
 ---
 
 Développé pour CES'Event
