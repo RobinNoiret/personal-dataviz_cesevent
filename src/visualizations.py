@@ -7,14 +7,19 @@ import plotly.express as px
 import pandas as pd
 
 
-# Color scheme
+# Color scheme - Optimized for high contrast
 COLORS = {
-    'primary': '#D3614E',
-    'background': '#1E1E1E',
-    'secondary_bg': '#2A2A2A',
-    'tertiary_bg': '#3A3A3A',
-    'text': '#FFFFFF',
-    'grid': '#444444'
+    'primary': '#FF6B5A',  # Brighter red-orange for better contrast
+    'secondary': '#FFA07A',  # Light salmon for secondary elements
+    'accent': '#FFD700',  # Gold for highlights
+    'background': '#1A1A1A',  # Slightly darker background
+    'secondary_bg': '#2D2D2D',  # Lighter secondary background for better separation
+    'tertiary_bg': '#404040',  # More visible tertiary background
+    'text': '#FFFFFF',  # Pure white text
+    'text_secondary': '#E0E0E0',  # Slightly dimmed text for less important info
+    'grid': '#505050',  # Lighter grid for better visibility
+    'success': '#4CAF50',  # Green for positive indicators
+    'warning': '#FFC107'  # Amber for warnings
 }
 
 # Default layout template
@@ -47,7 +52,7 @@ def create_timeline_chart(timeline_df: pd.DataFrame) -> go.Figure:
         name='Montant cumulé',
         line=dict(color=COLORS['primary'], width=3),
         fill='tozeroy',
-        fillcolor=f"rgba(211, 97, 78, 0.2)"
+        fillcolor='rgba(255, 107, 90, 0.3)'  # Brighter fill with more opacity
     ))
 
     fig.update_layout(
@@ -176,10 +181,13 @@ def create_amount_histogram(df: pd.DataFrame) -> go.Figure:
     fig.add_trace(go.Bar(
         x=bin_labels,
         y=hist_data,
-        marker_color=COLORS['primary'],
-        opacity=0.8,
+        marker=dict(
+            color=COLORS['primary'],
+            line=dict(color=COLORS['text'], width=1)  # Add border for better separation
+        ),
         text=hist_data,
         textposition='auto',
+        textfont=dict(color=COLORS['text'], size=12, family='Arial Black'),
         hovertemplate='Tranche: %{x}<br>Nombre: %{y}<extra></extra>'
     ))
 
@@ -301,9 +309,9 @@ def create_donations_count_chart(timeline_df: pd.DataFrame) -> go.Figure:
         y=timeline_df['cumulative_count'],
         mode='lines',
         name='Nombre cumulé',
-        line=dict(color='#FFA07A', width=3),
+        line=dict(color=COLORS['secondary'], width=3),
         fill='tozeroy',
-        fillcolor='rgba(255, 160, 122, 0.2)'
+        fillcolor='rgba(255, 160, 122, 0.3)'  # More visible fill
     ))
 
     fig.update_layout(

@@ -104,31 +104,36 @@ def main():
     with col1:
         st.metric(
             label="Montant Total Collecté",
-            value=format_currency(main_kpis['total_amount'])
+            value=format_currency(main_kpis['total_amount']),
+            help="Somme totale de toutes les donations reçues durant l'événement"
         )
 
     with col2:
         st.metric(
             label="Nombre de Donations",
-            value=f"{main_kpis['total_donations']:,}".replace(',', ' ')
+            value=f"{main_kpis['total_donations']:,}".replace(',', ' '),
+            help="Nombre total de contributions individuelles"
         )
 
     with col3:
         st.metric(
             label="Don Moyen",
-            value=format_currency(main_kpis['mean_donation'])
+            value=format_currency(main_kpis['mean_donation']),
+            help="Montant moyen par donation (moyenne arithmétique)"
         )
 
     with col4:
         st.metric(
             label="Don Médian",
-            value=format_currency(main_kpis['median_donation'])
+            value=format_currency(main_kpis['median_donation']),
+            help="Montant médian - 50% des donations sont au-dessus et 50% en-dessous de cette valeur"
         )
 
     with col5:
         st.metric(
             label="Taux par Heure",
-            value=format_currency(rate_per_hour)
+            value=format_currency(rate_per_hour),
+            help="Montant moyen collecté par heure sur la période totale de l'événement"
         )
 
     st.markdown("---")
