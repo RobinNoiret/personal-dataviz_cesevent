@@ -1,92 +1,63 @@
-# CES'Event Donations Dashboard
+# CES'Event - Dashboard de Donations
 
-Dashboard interactif de visualisation des données de donations pour l'événement caritatif CES'Event, développé avec Streamlit et Plotly.
+Dashboard de visualisation des donations pour l'événement caritatif CES'Event. Construit avec Streamlit et Plotly pour une expérience interactive.
 
-## 📊 Fonctionnalités
+## Ce que ça fait
 
-### KPIs Affichés
-- **Montant total collecté** - Somme de toutes les donations
-- **Nombre de donations** - Nombre total de contributions
-- **Don moyen/médian** - Statistiques de tendance centrale
-- **€/heure** - Taux de collecte par heure
-- **Donateurs uniques** - Nombre de donateurs identifiés
-- **Période de collecte** - Durée de l'événement
-- **Campus participants** - Nombre de campus impliqués
+Le dashboard affiche en temps réel les statistiques de donations :
+- Montant total collecté et nombre de contributions
+- Don moyen et médian
+- Taux de collecte par heure
+- Évolution des donations dans le temps
+- Distribution des montants par tranche
+- Activité par heure de la journée
+- Top donateurs
 
-### Visualisations Interactives
-- 📈 **Timeline cumulative** - Évolution du montant et du nombre de donations dans le temps
-- 🏫 **Performance par campus** - Bar chart et pie chart de la répartition par campus
-- 📊 **Distribution des montants** - Histogramme des donations par tranche
-- ⏰ **Donations par heure** - Analyse temporelle des contributions
-- 🏆 **Top donateurs** - Classement des plus gros contributeurs
+Tous les graphiques sont interactifs (zoom, survol pour les détails, etc.).
 
-### Design
-- Thème dark moderne (#1E1E1E, #2A2A2A, #3A3A3A)
-- Couleur d'accent : #D3614E
-- Layout wide optimisé
-- Graphiques Plotly interactifs (zoom, pan, hover)
+## Installation rapide
 
-## 🚀 Installation
+**Prérequis** : Python 3.8+
 
-### Prérequis
-- Python 3.8 ou supérieur
-- pip (gestionnaire de packages Python)
+```bash
+# Installer les dépendances
+pip install -r requirements.txt
 
-### Étapes d'installation
+# Ajouter votre fichier de données
+# Placez donations.json dans le dossier data/
 
-1. **Cloner ou télécharger le projet**
-   ```bash
-   cd cesevent-dataviz
-   ```
+# Lancer le dashboard
+python -m streamlit run dashboard.py
+```
 
-2. **Créer un environnement virtuel (recommandé)**
-   ```bash
-   # Windows
-   python -m venv venv
-   venv\Scripts\activate
+Le dashboard s'ouvre automatiquement dans votre navigateur sur `http://localhost:8501`
 
-   # macOS/Linux
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
+> **Note Windows** : Si `streamlit` n'est pas reconnu, utilisez `python -m streamlit run dashboard.py`
 
-3. **Installer les dépendances**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Ajouter vos données**
-   - Placez votre fichier `donations.json` dans le dossier `data/`
-   - Le fichier doit contenir un tableau JSON d'objets de donations
-   - Voir la section "Structure des données" ci-dessous
-
-## 📂 Structure du Projet
+## Structure du projet
 
 ```
-cesevent-dataviz/
+.
 ├── data/
-│   └── donations.json          # Fichier de données (à ajouter)
+│   └── donations.json       # Vos données (à ajouter)
 ├── src/
-│   ├── __init__.py             # Module Python
-│   ├── load_data.py            # Chargement et nettoyage des données
-│   ├── compute_kpis.py         # Calcul des indicateurs de performance
-│   └── visualizations.py       # Fonctions de visualisation Plotly
-├── dashboard.py                # Application Streamlit principale
-├── requirements.txt            # Dépendances Python
-├── .gitignore                  # Fichiers à ignorer par Git
-└── README.md                   # Documentation
+│   ├── load_data.py         # Chargement des données
+│   ├── compute_kpis.py      # Calculs des statistiques
+│   └── visualizations.py    # Graphiques Plotly
+├── dashboard.py             # Application principale
+└── requirements.txt
 ```
 
-## 📝 Structure des Données
+## Format des données
 
-Le fichier `donations.json` doit être un tableau JSON avec la structure suivante :
+Le fichier `donations.json` doit contenir un tableau d'objets :
 
 ```json
 [
   {
     "id": "455768204818491432",
     "name": "Louis",
-    "email": "user@example.com",
+    "email": null,
     "message": "#Lyon",
     "amount": "5.00",
     "currency": "EUR",
@@ -101,127 +72,58 @@ Le fichier `donations.json` doit être un tableau JSON avec la structure suivant
 ]
 ```
 
-### Champs Requis
-- `amount` (string) - Montant de la donation
-- `timestamp` (number) - Timestamp Unix en millisecondes
-- `campus_name` (string) - Nom du campus
-- `verified` (boolean) - Statut de vérification
+**Champs obligatoires** :
+- `amount` - Montant de la donation (string)
+- `timestamp` - Date/heure en millisecondes Unix
+- `campus_name` - Nom du campus
+- `verified` - Statut de vérification
 
-### Champs Optionnels
-- `name` (string) - Nom du donateur (pour le classement)
-- `email` (string) - Email du donateur (pour compter les uniques)
-- `message` (string) - Message associé à la donation
-- `campus_confidence` (string) - Score de confiance de l'attribution
+**Champs optionnels** :
+- `name` - Nom du donateur (pour le top donateurs)
+- `email` - Email (pour compter les donateurs uniques)
+- `message` - Message du donateur
 
-## 🎯 Comment Ajouter le Fichier donations.json
+## Personnalisation
 
-1. **Préparer vos données**
-   - Assurez-vous que vos données sont au format JSON
-   - Vérifiez que la structure correspond au format attendu
-   - Validez que les timestamps sont en millisecondes
+### Modifier les couleurs
 
-2. **Placer le fichier**
-   ```bash
-   # Créer le dossier data s'il n'existe pas
-   mkdir data
+Éditez `COLORS` dans `src/visualizations.py` :
 
-   # Copier votre fichier dans le dossier
-   cp /chemin/vers/votre/donations.json data/
-   ```
-
-3. **Vérifier le fichier**
-   - Le fichier doit se trouver à : `data/donations.json`
-   - Utilisez un validateur JSON si nécessaire
-
-## 💻 Lancer l'Application
-
-Une fois l'installation terminée et les données ajoutées :
-
-```bash
-streamlit run dashboard.py
-```
-
-Le dashboard s'ouvrira automatiquement dans votre navigateur par défaut à l'adresse :
-```
-http://localhost:8501
-```
-
-### Options de Lancement
-
-```bash
-# Spécifier un port différent
-streamlit run dashboard.py --server.port 8502
-
-# Désactiver l'ouverture automatique du navigateur
-streamlit run dashboard.py --server.headless true
-
-# Mode de développement avec rechargement automatique
-streamlit run dashboard.py --server.runOnSave true
-```
-
-## 🛠️ Développement
-
-### Modifier les Visualisations
-Les fonctions de visualisation se trouvent dans [src/visualizations.py](src/visualizations.py). Vous pouvez personnaliser :
-- Les couleurs (variable `COLORS`)
-- Les templates de graphiques
-- Les types de graphiques Plotly
-
-### Ajouter de Nouveaux KPIs
-1. Ajouter la fonction de calcul dans [src/compute_kpis.py](src/compute_kpis.py)
-2. Appeler la fonction dans [dashboard.py](dashboard.py)
-3. Afficher le résultat avec `st.metric()` ou créer une nouvelle visualisation
-
-### Modifier le Thème
-Les couleurs du thème sont définies dans [src/visualizations.py](src/visualizations.py) :
 ```python
 COLORS = {
-    'primary': '#D3614E',
-    'background': '#1E1E1E',
-    'secondary_bg': '#2A2A2A',
-    'tertiary_bg': '#3A3A3A',
-    'text': '#FFFFFF',
-    'grid': '#444444'
+    'primary': '#FF6B5A',      # Couleur principale
+    'background': '#1A1A1A',   # Fond
+    'text': '#FFFFFF',         # Texte
+    ...
 }
 ```
 
-## 📦 Dépendances
+### Ajouter un KPI
 
-- `pandas>=2.1.4` - Manipulation et analyse de données
-- `plotly>=5.18.0` - Visualisations interactives
-- `streamlit>=1.29.0` - Framework de création d'applications web
+1. Créez une fonction dans `src/compute_kpis.py`
+2. Appelez-la dans `dashboard.py`
+3. Affichez avec `st.metric()`
 
-## 🤝 Contribution
+## Problèmes courants
 
-Pour contribuer au projet :
-1. Fork le repository
-2. Créer une branche pour votre fonctionnalité
-3. Commiter vos changements
-4. Pousser vers la branche
-5. Ouvrir une Pull Request
+**Le fichier n'est pas trouvé**
+- Vérifiez que `donations.json` est bien dans le dossier `data/`
+- Vérifiez les permissions du fichier
 
-## 📄 Licence
-
-Ce projet est développé pour l'événement CES'Event.
-
-## 🐛 Problèmes Courants
-
-### Le fichier donations.json n'est pas trouvé
-- Vérifiez que le fichier est bien dans `data/donations.json`
-- Vérifiez les permissions de lecture du fichier
-
-### Erreur d'import des modules src
-- Assurez-vous d'exécuter `streamlit run dashboard.py` depuis la racine du projet
+**Erreur d'import**
+- Lancez la commande depuis la racine du projet
 - Vérifiez que `src/__init__.py` existe
 
-### Graphiques ne s'affichent pas correctement
-- Effacez le cache de Streamlit : `streamlit cache clear`
-- Redémarrez l'application
+**Les graphiques ne s'affichent pas**
+- Effacez le cache : `streamlit cache clear`
+- Relancez l'application
 
-## 📧 Support
+## Technologies
 
-Pour toute question ou problème, veuillez ouvrir une issue sur le repository du projet.
+- **Streamlit** - Interface web
+- **Plotly** - Graphiques interactifs
+- **Pandas** - Traitement des données
 
 ---
 
-**Développé avec ❤️ pour CES'Event**
+Développé pour CES'Event
