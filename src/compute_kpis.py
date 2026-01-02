@@ -21,18 +21,11 @@ def calculate_main_kpis(df: pd.DataFrame) -> dict:
     mean_donation = df['amount'].mean()
     median_donation = df['amount'].median()
 
-    # Calculate unique donors (based on email when available, otherwise count all)
-    # For donations without email, we can't determine if they're unique
-    unique_donors = df[df['email'].notna()]['email'].nunique()
-    donations_with_email = df['email'].notna().sum()
-
     return {
         'total_amount': total_amount,
         'total_donations': total_donations,
         'mean_donation': mean_donation,
-        'median_donation': median_donation,
-        'unique_donors': unique_donors,
-        'donations_with_email': donations_with_email
+        'median_donation': median_donation
     }
 
 
@@ -62,29 +55,16 @@ def calculate_rate_per_hour(df: pd.DataFrame) -> float:
 def get_campus_performance(df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate performance metrics by campus.
+    Note: This function is deprecated as campus data has been removed.
+    Returns an empty DataFrame.
 
     Args:
         df: Donations DataFrame
 
     Returns:
-        DataFrame with campus performance metrics
+        Empty DataFrame
     """
-    campus_stats = df.groupby('campus_name').agg({
-        'amount': ['sum', 'count', 'mean', 'median'],
-        'campus_confidence': 'mean'
-    }).round(2)
-
-    campus_stats.columns = ['total_amount', 'donation_count', 'mean_amount', 'median_amount', 'avg_confidence']
-    campus_stats = campus_stats.reset_index()
-
-    # Calculate percentage of total
-    total = campus_stats['total_amount'].sum()
-    campus_stats['percentage'] = (campus_stats['total_amount'] / total * 100).round(2)
-
-    # Sort by total amount descending
-    campus_stats = campus_stats.sort_values('total_amount', ascending=False)
-
-    return campus_stats
+    return pd.DataFrame()
 
 
 def get_hourly_donations(df: pd.DataFrame) -> pd.DataFrame:

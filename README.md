@@ -57,15 +57,10 @@ Le fichier `donations.json` doit contenir un tableau d'objets :
   {
     "id": "455768204818491432",
     "name": "Louis",
-    "email": null,
-    "message": "#Lyon",
     "amount": "5.00",
     "currency": "EUR",
     "timestamp": 1766151263000,
     "verified": true,
-    "campus_id": "lyon",
-    "campus_name": "Lyon",
-    "campus_confidence": "0.90",
     "created_at": "2025-12-19 15:25:17.727658+00",
     "updated_at": "2025-12-19 15:25:17.727658+00"
   }
@@ -75,13 +70,13 @@ Le fichier `donations.json` doit contenir un tableau d'objets :
 **Champs obligatoires** :
 - `amount` - Montant de la donation (string)
 - `timestamp` - Date/heure en millisecondes Unix
-- `campus_name` - Nom du campus
 - `verified` - Statut de vérification
 
 **Champs optionnels** :
 - `name` - Nom du donateur (pour le top donateurs)
-- `email` - Email (pour compter les donateurs uniques)
-- `message` - Message du donateur
+- `id` - Identifiant unique de la donation
+- `currency` - Devise (EUR par défaut)
+- `created_at` / `updated_at` - Dates de création/mise à jour
 
 ## Personnalisation
 

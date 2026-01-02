@@ -61,9 +61,6 @@ def clean_donations(df: pd.DataFrame) -> pd.DataFrame:
     df['hour'] = df['datetime'].dt.hour
     df['day_name'] = df['datetime'].dt.day_name()
 
-    # Convert campus_confidence to float
-    df['campus_confidence'] = df['campus_confidence'].astype(float)
-
     # Filter out zero or negative amounts
     df = df[df['amount'] > 0].copy()
 
@@ -96,8 +93,6 @@ def get_data_summary(df: pd.DataFrame) -> dict:
             'end': df['datetime'].max()
         },
         'total_amount': df['amount'].sum(),
-        'unique_campuses': df['campus_name'].nunique(),
-        'campuses': df['campus_name'].unique().tolist(),
         'verified_count': df['verified'].sum(),
         'unverified_count': (~df['verified']).sum()
     }
